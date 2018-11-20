@@ -30,8 +30,8 @@
     "grunt-contrib-jshint": "^1.0.0",
     "grunt-contrib-clean": "^1.0.0",
     "grunt-contrib-nodeunit": "^1.0.0",
-    "grunt": "~1.0.1",
-    "mjml": "4.x"
+    "grunt": "^1.0.3",
+    "mjml": "^4.2.0"
   },
   "keywords": [
     "gruntplugin",
@@ -40,6 +40,6 @@
     "plugin"
   ],
   "peerDependencies": {
-    "mjml": "^3.0.0 || ^4.0.0"
+    "mjml": "^4.2.0"
   }
 }

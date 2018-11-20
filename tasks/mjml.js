@@ -10,16 +10,24 @@
 
 var path = require('path');
 
-var mjml = require('mjml');
+var mjml2html = require('mjml').default;
+
+var defaultOptions = {
+  keepComments: true,
+  beautify: true,
+  minify: false,
+  validationLevel: 'soft',    //'strict', 'soft', 'skip'
+  filePath: '.'
+};
 
 module.exports = function(grunt) {
 
-  function compile(src, dest){
+  function compile(src, dest, options = {}){
     var srcContent;
     var res;
     try{
       srcContent = grunt.file.read(src);
-      res = (mjml.mjml2html || mjml)(srcContent);
+      res = mjml2html(srcContent, options);
       if (res.errors && res.errors.length) {
         grunt.log.error('error processing file ' + src);
         grunt.fatal(JSON.stringify(res.errors, null, 4));
@@ -40,8 +48,7 @@ module.exports = function(grunt) {
 
   grunt.registerMultiTask('mjml', 'Grunt integration for mjml, the email template engine', function() {
     // Merge task-specific and/or target-specific options with these defaults.
-    var options = this.options({
-    });
+    var options = this.options(defaultOptions);
 
     // Iterate over all specified file groups.
     this.files.forEach(function(f) {
@@ -53,9 +60,9 @@ module.exports = function(grunt) {
       }).forEach(function(src){
         // Write the destination file.
         if(!isDestFile) {
-          compile(src, path.join( f.dest , path.basename(src)));
+          compile(src, path.join( f.dest , path.basename(src)), options);
         } else {
-          compile(src, f.dest);
+          compile(src, f.dest, options);
         }
       });
 
