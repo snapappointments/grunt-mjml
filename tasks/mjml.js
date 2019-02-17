@@ -10,7 +10,7 @@
 
 var path = require('path');
 
-var mjml2html = require('mjml').default;
+var mjml2html = require('mjml');
 
 var defaultOptions = {
   keepComments: true,
